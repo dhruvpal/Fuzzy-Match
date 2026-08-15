@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Universal Match AI — Find the right record from messy data</title>
+<meta name="description" content="Universal Match AI is a premium record matching workspace: upload reference and master data, configure fuzzy matching rules, and review confidence-scored matches." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./tokens.css" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<!-- ===================== ICON SPRITE (inline SVG assets) ===================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="i-logo" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6l2 5 2-10 2 5h4"/></g>
+    <g id="i-dash" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="7" height="8" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="3" y="15" width="7" height="6" rx="2"/><rect x="14" y="11" width="7" height="10" rx="2"/></g>
+    <g id="i-spark" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18 16.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></g>
+    <g id="i-history" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v4h4"/><path d="M12 8v4l3 2"/></g>
+    <g id="i-settings" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></g>
+    <g id="i-review" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H17a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6.5A2.5 2.5 0 0 1 4 18.5z"/><path d="M8 9h7M8 13h5"/></g>
+    <g id="i-search" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l4.5 4.5"/></g>
+    <g id="i-upload" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-3"/></g>
+    <g id="i-layers" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></g>
+    <g id="i-file" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></g>
+    <g id="i-x" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></g>
+    <g id="i-check" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></g>
+    <g id="i-arrow-down" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v14"/><path d="M6 12.5l6 6 6-6"/></g>
+    <g id="i-plus" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></g>
+    <g id="i-db" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="7" ry="2.8"/><path d="M5 5.5v13c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-13"/><path d="M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/></g>
+    <g id="i-target" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.4"/></g>
+    <g id="i-alert" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 4l8.5 15H3.5z"/><path d="M12 9.5v4M12 16.5h.01"/></g>
+    <g id="i-ban" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M6.5 17.5l11-11"/></g>
+    <g id="i-download" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12"/><path d="M7.5 11.5L12 16l4.5-4.5"/><path d="M4 19h16"/></g>
+    <g id="i-play" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5l12 7.5-12 7.5z"/></g>
+    <g id="i-menu" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></g>
+    <g id="i-rows" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></g>
+    <g id="i-cols" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 4v16M12 4v16M18 4v16"/></g>
+    <g id="i-swap" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></g>
+  </defs>
+</svg>
+
+<div class="uma-app">
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="uma-sidebar" id="sidebar">
+    <div class="uma-brand">
+      <div class="uma-logo"><svg viewBox="0 0 24 24"><use href="#i-logo"/></svg></div>
+      <div>
+        <div class="uma-brand-name">Universal Match AI</div>
+        <div class="uma-brand-sub">Data Matching Platform</div>
+      </div>
+    </div>
+
+    <nav class="uma-nav" aria-label="Primary">
+      <div class="uma-nav-label uma-caps">Workspace</div>
+      <button class="uma-nav-item is-active" data-nav="dashboard"><svg viewBox="0 0 24 24"><use href="#i-dash"/></svg>Dashboard</button>
+      <button class="uma-nav-item" data-nav="new-match"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg>New Match</button>
+      <button class="uma-nav-item" data-nav="history"><svg viewBox="0 0 24 24"><use href="#i-history"/></svg>Match History</button>
+      <button class="uma-nav-item" data-nav="review"><svg viewBox="0 0 24 24"><use href="#i-review"/></svg>Review Center</button>
+      <button class="uma-nav-item" data-nav="settings"><svg viewBox="0 0 24 24"><use href="#i-settings"/></svg>Settings</button>
+    </nav>
+
+    <div class="uma-sidebar-foot">
+      <div class="uma-usage">
+        <div class="uma-caps">Monthly rows</div>
+        <div class="uma-row" style="justify-content:space-between;margin-top:6px">
+          <b class="uma-mono">{{rows_used}}</b><span class="uma-muted" style="font-size:12px">of {{rows_quota}}</span>
+        </div>
+        <div class="uma-bar bar" style="margin-top:10px"><span style="width:62%"></span></div>
+        <p class="uma-muted" style="font-size:11.5px;margin-top:10px">Enterprise plan · renews Sep 1</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="uma-main">
+    <header class="uma-topbar">
+      <div class="uma-row">
+        <button class="uma-btn uma-btn--ghost uma-btn--icon uma-menu-btn" id="menuBtn" aria-label="Toggle navigation"><svg viewBox="0 0 24 24"><use href="#i-menu"/></svg></button>
+        <div class="uma-title">
+          <h1 id="pageTitle">Universal Match AI</h1>
+          <p id="pageSub">Find the right record from messy data.</p>
+        </div>
+      </div>
+      <div class="uma-topbar-actions">
+        <label class="uma-search">
+          <svg viewBox="0 0 24 24"><use href="#i-search"/></svg>
+          <input type="search" placeholder="Search jobs, records, columns…" aria-label="Search" />
+        </label>
+        <button class="uma-btn uma-btn--ghost uma-btn--sm"><svg viewBox="0 0 24 24"><use href="#i-download"/></svg>Export</button>
+        <button class="uma-btn uma-btn--primary uma-btn--sm" data-nav="new-match"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg>New Match</button>
+        <div class="uma-avatar">DK</div>
+      </div>
+    </header>
+
+    <main class="uma-content">
+
+      <!-- ============ PAGE: DASHBOARD ============ -->
+      <section class="uma-page" data-page="dashboard">
+        <div class="uma-kpis">
+          <article class="uma-card uma-card--hover uma-kpi">
+            <div class="uma-between">
+              <div class="uma-kpi-icon"><svg viewBox="0 0 24 24"><use href="#i-db"/></svg></div>
+              <span class="uma-delta up">+8.2%</span>
+            </div>
+            <div class="uma-kpi-value">{{total_records}}</div>
+            <div class="uma-kpi-label">Total Records</div>
+          </article>
+          <article class="uma-card uma-card--hover uma-kpi">
+            <div class="uma-between">
+              <div class="uma-kpi-icon is-success"><svg viewBox="0 0 24 24"><use href="#i-target"/></svg></div>
+              <span class="uma-delta up">+4.1%</span>
+            </div>
+            <div class="uma-kpi-value">{{matched_records}}</div>
+            <div class="uma-kpi-label">Matched</div>
+          </article>
+          <article class="uma-card uma-card--hover uma-kpi">
+            <div class="uma-between">
+              <div class="uma-kpi-icon is-warning"><svg viewBox="0 0 24 24"><use href="#i-alert"/></svg></div>
+              <span class="uma-delta flat">−0.6%</span>
+            </div>
+            <div class="uma-kpi-value">{{review_records}}</div>
+            <div class="uma-kpi-label">Review</div>
+          </article>
+          <article class="uma-card uma-card--hover uma-kpi">
+            <div class="uma-between">
+              <div class="uma-kpi-icon is-danger"><svg viewBox="0 0 24 24"><use href="#i-ban"/></svg></div>
+              <span class="uma-delta down">−1.9%</span>
+            </div>
+            <div class="uma-kpi-value">{{no_match_records}}</div>
+            <div class="uma-kpi-label">No Match</div>
+          </article>
+        </div>
+
+        <div class="uma-grid" style="grid-template-columns:1.6fr 1fr;margin-top:24px" id="dashSplit">
+          <section class="uma-card">
+            <div class="uma-card-head">
+              <div><h2>Match Quality</h2><p>Confidence distribution across the last 30 days</p></div>
+              <div class="uma-seg" data-seg="quality">
+                <button class="is-active">30d</button><button>90d</button><button>All</button>
+              </div>
+            </div>
+            <div class="uma-chart-bars" id="qualityChart"></div>
+          </section>
+
+          <section class="uma-card">
+            <div class="uma-card-head"><div><h2>Match Rate</h2><p>Auto-accepted at ≥ 90% confidence</p></div></div>
+            <div class="uma-donut" id="dashDonut"></div>
+            <hr class="uma-divider" />
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div>
+                <div class="uma-between"><span class="uma-muted">High confidence</span><b class="uma-mono">87.6%</b></div>
+                <div class="uma-bar uma-bar--thin is-success" style="margin-top:8px"><span style="width:87.6%"></span></div>
+              </div>
+              <div>
+                <div class="uma-between"><span class="uma-muted">Needs review</span><b class="uma-mono">8.9%</b></div>
+                <div class="uma-bar uma-bar--thin is-warning" style="margin-top:8px"><span style="width:8.9%"></span></div>
+              </div>
+              <div>
+                <div class="uma-between"><span class="uma-muted">No match</span><b class="uma-mono">3.5%</b></div>
+                <div class="uma-bar uma-bar--thin is-danger" style="margin-top:8px"><span style="width:3.5%"></span></div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="uma-card uma-card--flush" style="margin-top:24px">
+          <div class="uma-toolbar">
+            <div><h2 style="font-size:var(--uma-fs-h2)">Recent Matching Jobs</h2><p class="uma-muted" style="font-size:13px;margin-top:4px">Injected from Python: <span class="uma-mono">{{recent_jobs}}</span></p></div>
+            <div class="uma-row">
+              <button class="uma-btn uma-btn--ghost uma-btn--sm"><svg viewBox="0 0 24 24"><use href="#i-swap"/></svg>Filter</button>
+              <button class="uma-btn uma-btn--subtle uma-btn--sm" data-nav="history">View all</button>
+            </div>
+          </div>
+          <div class="uma-table-wrap">
+            <table class="uma-table">
+              <thead><tr><th>Job</th><th>Reference</th><th>Rows</th><th>Match rate</th><th>Status</th><th>Created</th></tr></thead>
+              <tbody id="jobsBody"></tbody>
+            </table>
+          </div>
+          <div class="uma-table-foot"><span>Showing 6 of 128 jobs</span><span class="uma-mono">page 1 / 22</span></div>
+        </section>
+      </section>
+
+      <!-- ============ PAGE: NEW MATCH ============ -->
+      <section class="uma-page uma-hidden" data-page="new-match">
+        <div class="uma-stepper" id="stepper">
+          <button class="uma-step is-active" data-step="1"><div class="idx">01</div><div class="nm">Upload Data</div><div class="ds">Reference &amp; master files</div></button>
+          <button class="uma-step" data-step="2"><div class="idx">02</div><div class="nm">Configure Matching</div><div class="ds">Columns, weights, thresholds</div></button>
+          <button class="uma-step" data-step="3"><div class="idx">03</div><div class="nm">Run Matching</div><div class="ds">Fuzzy engine execution</div></button>
+          <button class="uma-step" data-step="4"><div class="idx">04</div><div class="nm">Results</div><div class="ds">Review &amp; export</div></button>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="uma-step-panel" data-panel="1" style="margin-top:24px">
+          <div class="uma-grid" style="grid-template-columns:1fr 1fr" id="uploadGrid">
+            <section class="uma-card">
+              <div class="uma-card-head">
+                <div><h2>Reference Data</h2><p>The messy records you want to resolve</p></div>
+                <span class="uma-badge uma-badge--info"><span class="dot"></span>Required</span>
+              </div>
+              <div class="uma-dropzone" data-dz="reference">
+                <div class="uma-dz-icon"><svg viewBox="0 0 24 24"><use href="#i-upload"/></svg></div>
+                <div class="uma-dz-title">Drop your CSV or Excel file here</div>
+                <div class="uma-dz-sub">or click to browse — single file</div>
+                <div class="uma-dz-formats">
+                  <span class="uma-badge uma-badge--neutral">CSV</span>
+                  <span class="uma-badge uma-badge--neutral">XLSX</span>
+                  <span class="uma-badge uma-badge--neutral">XLS</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px" data-files="reference"></div>
+            </section>
+
+            <section class="uma-card">
+              <div class="uma-card-head">
+                <div><h2>Master Data</h2><p>Trusted source of truth to match against</p></div>
+                <span class="uma-badge uma-badge--neutral">Multiple allowed</span>
+              </div>
+              <div class="uma-dropzone" data-dz="master">
+                <div class="uma-dz-icon"><svg viewBox="0 0 24 24"><use href="#i-layers"/></svg></div>
+                <div class="uma-dz-title">Drop one or multiple files here</div>
+                <div class="uma-dz-sub">or click to browse — CSV / Excel</div>
+                <div class="uma-dz-formats">
+                  <span class="uma-badge uma-badge--neutral">CSV</span>
+                  <span class="uma-badge uma-badge--neutral">XLSX</span>
+                  <span class="uma-badge uma-badge--neutral">XLS</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px" data-files="master"></div>
+            </section>
+          </div>
+          <div class="uma-actions-bar">
+            <button class="uma-btn uma-btn--subtle" disabled>Back</button>
+            <button class="uma-btn uma-btn--primary" data-goto="2">Continue to configuration</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="uma-step-panel uma-hidden" data-panel="2" style="margin-top:24px">
+          <section class="uma-card">
+            <div class="uma-card-head">
+              <div><h2>Column Mapping</h2><p>Pair reference columns with master columns and set their weight</p></div>
+              <span class="uma-badge uma-badge--info" id="weightTotalBadge"><span class="dot"></span>Total 100%</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px" id="rulesWrap"></div>
+            <button class="uma-dashed-btn" id="addRule" style="margin-top:14px"><svg viewBox="0 0 24 24"><use href="#i-plus"/></svg>Add Matching Rule</button>
+
+            <hr class="uma-divider" />
+            <div class="uma-caps">Weight allocation</div>
+            <div class="uma-weightbar" id="weightBar" style="margin-top:10px"></div>
+            <div class="uma-legend" id="weightLegend"></div>
+          </section>
+
+          <section class="uma-card" style="margin-top:20px">
+            <div class="uma-card-head">
+              <div><h2>Return Columns</h2><p>Master columns to include in the result table</p></div>
+              <button class="uma-btn uma-btn--ghost uma-btn--sm" id="selectAllCols">Select all</button>
+            </div>
+            <div class="uma-chips" id="returnChips"></div>
+          </section>
+
+          <section class="uma-card" style="margin-top:20px">
+            <div class="uma-card-head"><div><h2>Matching Settings</h2><p>Thresholds are placeholders — Python owns the real values</p></div></div>
+            <div class="uma-grid" style="grid-template-columns:1fr 1fr">
+              <div class="uma-field">
+                <div class="uma-between"><span class="uma-label">High Confidence Threshold</span><b class="uma-mono" id="thHighVal">90%</b></div>
+                <input type="range" class="uma-range" id="thHigh" min="50" max="100" value="90" />
+                <p class="uma-muted" style="font-size:12px">Matches at or above this score are auto-accepted.</p>
+              </div>
+              <div class="uma-field">
+                <div class="uma-between"><span class="uma-label">Review Threshold</span><b class="uma-mono" id="thReviewVal">75%</b></div>
+                <input type="range" class="uma-range" id="thReview" min="30" max="99" value="75" />
+                <p class="uma-muted" style="font-size:12px">Below this score a record is flagged as no match.</p>
+              </div>
+              <div class="uma-field">
+                <span class="uma-label">Matching Mode</span>
+                <div class="uma-seg" data-seg="mode"><button class="is-active">Automatic</button><button>Assisted</button><button>Strict</button></div>
+              </div>
+              <div class="uma-field">
+                <span class="uma-label">Candidate Matches</span>
+                <select class="uma-select">
+                  <option>Top 1</option><option selected>Top 3</option><option>Top 5</option><option>Top 10</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <div class="uma-actions-bar">
+            <button class="uma-btn uma-btn--ghost" data-goto="1">Back</button>
+            <button class="uma-btn uma-btn--primary" data-goto="3"><svg viewBox="0 0 24 24"><use href="#i-play"/></svg>Run matching</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="uma-step-panel uma-hidden" data-panel="3" style="margin-top:24px">
+          <section class="uma-card">
+            <div class="uma-proc">
+              <div class="uma-proc-ring">
+                <div class="uma-donut" id="procDonut"></div>
+              </div>
+              <div>
+                <div class="uma-card-head"><div><h2>Matching in progress</h2><p>RapidFuzz engine is scoring candidates</p></div>
+                  <span class="uma-badge uma-badge--info"><span class="dot"></span>Running</span></div>
+                <div class="uma-tasks" id="procTasks"></div>
+              </div>
+            </div>
+            <hr class="uma-divider" />
+            <div class="uma-stat-strip">
+              <div class="uma-stat"><span class="uma-caps">Records processed</span><b id="procProcessed">{{records_processed}}</b></div>
+              <div class="uma-stat"><span class="uma-caps">Current progress</span><b id="procProgress">{{progress}}</b></div>
+              <div class="uma-stat"><span class="uma-caps">Match percentage</span><b id="procRate">{{match_rate}}</b></div>
+            </div>
+            <div class="uma-bar" style="margin-top:20px" id="procBar"><span style="width:0%"></span></div>
+          </section>
+          <div class="uma-actions-bar">
+            <button class="uma-btn uma-btn--ghost" data-goto="2">Back</button>
+            <button class="uma-btn uma-btn--primary" data-goto="4">View results</button>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="uma-step-panel uma-hidden" data-panel="4" style="margin-top:24px">
+          <div class="uma-kpis">
+            <article class="uma-card uma-kpi"><div class="uma-kpi-icon"><svg viewBox="0 0 24 24"><use href="#i-db"/></svg></div><div class="uma-kpi-value">{{total_records}}</div><div class="uma-kpi-label">Total</div></article>
+            <article class="uma-card uma-kpi"><div class="uma-kpi-icon is-success"><svg viewBox="0 0 24 24"><use href="#i-target"/></svg></div><div class="uma-kpi-value">{{matched_records}}</div><div class="uma-kpi-label">Matched</div></article>
+            <article class="uma-card uma-kpi"><div class="uma-kpi-icon is-warning"><svg viewBox="0 0 24 24"><use href="#i-alert"/></svg></div><div class="uma-kpi-value">{{review_records}}</div><div class="uma-kpi-label">Review</div></article>
+            <article class="uma-card uma-kpi"><div class="uma-kpi-icon is-danger"><svg viewBox="0 0 24 24"><use href="#i-ban"/></svg></div><div class="uma-kpi-value">{{no_match_records}}</div><div class="uma-kpi-label">No Match</div></article>
+          </div>
+
+          <div class="uma-grid" style="grid-template-columns:1fr 1.6fr;margin-top:24px" id="resSplit">
+            <section class="uma-card">
+              <div class="uma-card-head"><div><h2>Match Rate</h2><p>Share of records resolved</p></div></div>
+              <div class="uma-donut" id="resDonut"></div>
+              <p class="uma-muted" style="text-align:center;margin-top:14px;font-size:13px">{{matched_records}} of {{total_records}} records matched</p>
+            </section>
+            <section class="uma-card">
+              <div class="uma-card-head"><div><h2>Confidence Distribution</h2><p>Scores bucketed in 10-point bands</p></div></div>
+              <div class="uma-chart-bars" id="confChart"></div>
+            </section>
+          </div>
+
+          <section class="uma-card uma-card--flush" style="margin-top:24px">
+            <div class="uma-toolbar">
+              <div><h2 style="font-size:var(--uma-fs-h2)">Match Results</h2><p class="uma-muted" style="font-size:13px;margin-top:4px">Click any row to inspect the match detail</p></div>
+              <div class="uma-row">
+                <div class="uma-seg" data-seg="results"><button class="is-active">All</button><button>High</button><button>Review</button><button>No match</button></div>
+                <button class="uma-btn uma-btn--ghost uma-btn--sm"><svg viewBox="0 0 24 24"><use href="#i-download"/></svg>Excel</button>
+                <button class="uma-btn uma-btn--ghost uma-btn--sm"><svg viewBox="0 0 24 24"><use href="#i-download"/></svg>CSV</button>
+              </div>
+            </div>
+            <div class="uma-table-wrap">
+              <table class="uma-table">
+                <thead><tr><th>Sample Value</th><th>Best Match</th><th>Returned ID</th><th>Confidence</th><th>Status</th></tr></thead>
+                <tbody id="resultsBody"></tbody>
+              </table>
+            </div>
+            <div class="uma-table-foot"><span>Rows injected by Python: <span class="uma-mono">{{result_rows}}</span></span><span class="uma-mono">page 1 / 42</span></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ============ PAGE: HISTORY ============ -->
+      <section class="uma-page uma-hidden" data-page="history">
+        <section class="uma-card uma-card--flush">
+          <div class="uma-toolbar">
+            <div><h2 style="font-size:var(--uma-fs-h2)">Match History</h2><p class="uma-muted" style="font-size:13px;margin-top:4px">Every job executed in this workspace</p></div>
+            <div class="uma-row">
+              <label class="uma-search"><svg viewBox="0 0 24 24"><use href="#i-search"/></svg><input placeholder="Search jobs" /></label>
+              <button class="uma-btn uma-btn--ghost uma-btn--sm"><svg viewBox="0 0 24 24"><use href="#i-swap"/></svg>Sort</button>
+            </div>
+          </div>
+          <div class="uma-table-wrap">
+            <table class="uma-table">
+              <thead><tr><th>Job</th><th>Reference</th><th>Rows</th><th>Match rate</th><th>Status</th><th>Created</th></tr></thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
+          <div class="uma-table-foot"><span>Showing 6 of 128 jobs</span><span class="uma-mono">page 1 / 22</span></div>
+        </section>
+      </section>
+
+      <!-- ============ PAGE: REVIEW CENTER ============ -->
+      <section class="uma-page uma-hidden" data-page="review">
+        <div class="uma-between" style="margin-bottom:20px">
+          <div class="uma-row">
+            <span class="uma-badge uma-badge--review"><span class="dot"></span>{{review_records}} uncertain matches</span>
+            <span class="uma-muted" style="font-size:13px">Queue position <span class="uma-mono">3 / 1,120</span></span>
+          </div>
+          <div class="uma-row">
+            <button class="uma-btn uma-btn--ghost uma-btn--sm">Previous</button>
+            <button class="uma-btn uma-btn--ghost uma-btn--sm">Next</button>
+          </div>
+        </div>
+        <div id="reviewWrap" style="display:flex;flex-direction:column;gap:20px"></div>
+      </section>
+
+      <!-- ============ PAGE: SETTINGS ============ -->
+      <section class="uma-page uma-hidden" data-page="settings">
+        <div class="uma-grid" style="grid-template-columns:1fr 1fr" id="setGrid">
+          <section class="uma-card">
+            <div class="uma-card-head"><div><h2>Matching Defaults</h2><p>Applied to every new job</p></div></div>
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <div class="uma-field"><span class="uma-label">Default engine</span>
+                <select class="uma-select"><option selected>RapidFuzz — token_set_ratio</option><option>RapidFuzz — WRatio</option><option>RapidFuzz — partial_ratio</option></select></div>
+              <div class="uma-field"><div class="uma-between"><span class="uma-label">Default high threshold</span><b class="uma-mono" id="setHighVal">90%</b></div>
+                <input type="range" class="uma-range" id="setHigh" min="50" max="100" value="90" /></div>
+              <div class="uma-field"><span class="uma-label">Normalisation</span>
+                <div class="uma-chips">
+                  <button class="uma-chip is-on"><span class="box"><svg viewBox="0 0 16 16"><use href="#i-check"/></svg></span>Lowercase</button>
+                  <button class="uma-chip is-on"><span class="box"><svg viewBox="0 0 16 16"><use href="#i-check"/></svg></span>Strip punctuation</button>
+                  <button class="uma-chip"><span class="box"><svg viewBox="0 0 16 16"><use href="#i-check"/></svg></span>Remove stopwords</button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="uma-card">
+            <div class="uma-card-head"><div><h2>Export &amp; Workspace</h2><p>Output format and file handling</p></div></div>
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <div class="uma-field"><span class="uma-label">Default export format</span>
+                <div class="uma-seg" data-seg="export"><button class="is-active">XLSX</button><button>CSV</button><button>Both</button></div></div>
+              <div class="uma-field"><span class="uma-label">Workspace name</span><input class="uma-input" value="Universal Match AI" /></div>
+              <div class="uma-field"><span class="uma-label">Result retention</span>
+                <select class="uma-select"><option>7 days</option><option selected>30 days</option><option>1 year</option></select></div>
+              <div class="uma-row" style="margin-top:4px">
+                <button class="uma-btn uma-btn--primary">Save changes</button>
+                <button class="uma-btn uma-btn--subtle">Reset</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ===================== MATCH DETAIL DRAWER ===================== -->
+<div class="uma-scrim" id="scrim"></div>
+<aside class="uma-drawer" id="drawer" aria-hidden="true" aria-label="Match detail">
+  <div class="uma-drawer-head">
+    <div>
+      <div class="uma-caps">Match detail</div>
+      <h2 style="margin-top:6px;font-size:var(--uma-fs-h2)" id="dTitle">—</h2>
+      <div class="uma-row" style="margin-top:10px"><span id="dBadge"></span><span class="uma-muted uma-mono" style="font-size:12px" id="dId"></span></div>
+    </div>
+    <button class="uma-x" id="drawerClose" aria-label="Close"><svg viewBox="0 0 20 20"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="uma-drawer-body">
+    <div>
+      <div class="uma-caps" style="margin-bottom:10px">Original vs matched values</div>
+      <div class="uma-kv" id="dKv"></div>
+    </div>
+    <div>
+      <div class="uma-caps" style="margin-bottom:6px">Individual column scores</div>
+      <div id="dScores"></div>
+      <hr class="uma-divider" style="margin:14px 0" />
+      <div class="uma-between"><span style="font-weight:650">Final Confidence</span><b class="uma-mono" style="font-size:20px" id="dFinal">—</b></div>
+      <div class="uma-bar" style="margin-top:10px" id="dFinalBar"><span style="width:0%"></span></div>
+    </div>
+    <div>
+      <div class="uma-caps" style="margin-bottom:10px">Alternative candidates</div>
+      <div style="display:flex;flex-direction:column;gap:10px" id="dCands"></div>
+    </div>
+  </div>
+  <div class="uma-drawer-foot">
+    <button class="uma-btn uma-btn--success" style="flex:1"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Accept Match</button>
+    <button class="uma-btn uma-btn--ghost" style="flex:1">Choose Alternative</button>
+    <button class="uma-btn uma-btn--danger">Reject</button>
+  </div>
+</aside>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

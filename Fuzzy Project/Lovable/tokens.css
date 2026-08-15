@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Universal Match AI — Design Tokens
+   Plain CSS custom properties. Safe to copy into Streamlit st.markdown(<style>)
+   ========================================================================== */
+:root {
+  /* ---- Color: base surfaces (dark navy / indigo) ---- */
+  --uma-bg:            #070b18;
+  --uma-bg-2:          #0a1022;
+  --uma-surface:       #0e152b;
+  --uma-surface-2:     #131c38;
+  --uma-surface-3:     #1a2547;
+  --uma-glass:         rgba(20, 30, 62, 0.55);
+  --uma-glass-2:       rgba(28, 40, 80, 0.38);
+
+  /* ---- Color: brand ---- */
+  --uma-primary:       #4f7cff;
+  --uma-primary-soft:  #6f95ff;
+  --uma-primary-deep:  #2b4fd6;
+  --uma-indigo:        #7c5cff;
+  --uma-cyan:          #35d0e8;
+
+  /* ---- Color: status ---- */
+  --uma-success:       #2fd18a;
+  --uma-success-bg:    rgba(47, 209, 138, 0.12);
+  --uma-warning:       #f5b445;
+  --uma-warning-bg:    rgba(245, 180, 69, 0.12);
+  --uma-danger:        #ff6b6b;
+  --uma-danger-bg:     rgba(255, 107, 107, 0.12);
+
+  /* ---- Color: text ---- */
+  --uma-text:          #eef2ff;
+  --uma-text-2:        #aab6d8;
+  --uma-text-3:        #7683a6;
+
+  /* ---- Borders & lines ---- */
+  --uma-border:        rgba(140, 165, 235, 0.14);
+  --uma-border-strong: rgba(140, 165, 235, 0.26);
+
+  /* ---- Gradients (subtle only) ---- */
+  --uma-grad-brand:    linear-gradient(135deg, #4f7cff 0%, #7c5cff 100%);
+  --uma-grad-surface:  linear-gradient(160deg, rgba(79,124,255,.10), rgba(124,92,255,.04) 60%, transparent);
+  --uma-grad-page:     radial-gradient(1100px 620px at 12% -8%, rgba(79,124,255,.16), transparent 60%),
+                       radial-gradient(900px 560px at 92% 4%, rgba(124,92,255,.13), transparent 62%);
+
+  /* ---- Shadows ---- */
+  --uma-shadow-sm:  0 1px 2px rgba(2,6,20,.4);
+  --uma-shadow-md:  0 10px 28px -14px rgba(2,6,23,.85);
+  --uma-shadow-lg:  0 28px 60px -28px rgba(2,6,23,.95);
+  --uma-glow:       0 0 0 1px rgba(79,124,255,.35), 0 12px 36px -12px rgba(79,124,255,.45);
+
+  /* ---- Radius ---- */
+  --uma-r-xs: 8px;
+  --uma-r-sm: 10px;
+  --uma-r-md: 14px;
+  --uma-r-lg: 18px;
+  --uma-r-xl: 24px;
+  --uma-r-pill: 999px;
+
+  /* ---- Spacing scale (4pt) ---- */
+  --uma-s1: 4px;  --uma-s2: 8px;  --uma-s3: 12px; --uma-s4: 16px;
+  --uma-s5: 20px; --uma-s6: 24px; --uma-s7: 32px; --uma-s8: 40px;
+  --uma-s9: 56px; --uma-s10: 72px;
+
+  /* ---- Typography ---- */
+  --uma-font: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+  --uma-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --uma-fs-display: clamp(28px, 3vw, 38px);
+  --uma-fs-h1: 26px;
+  --uma-fs-h2: 19px;
+  --uma-fs-h3: 15px;
+  --uma-fs-body: 14px;
+  --uma-fs-sm: 13px;
+  --uma-fs-xs: 11.5px;
+  --uma-track-caps: .14em;
+
+  /* ---- Motion ---- */
+  --uma-ease: cubic-bezier(.22,.61,.36,1);
+  --uma-fast: 140ms;
+  --uma-mid: 240ms;
+  --uma-slow: 420ms;
+
+  /* ---- Layout ---- */
+  --uma-sidebar-w: 244px;
+  --uma-max-w: 1320px;
+}
